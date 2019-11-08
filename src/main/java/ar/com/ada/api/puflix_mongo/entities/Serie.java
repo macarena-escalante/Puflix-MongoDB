@@ -6,8 +6,6 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import ar.com.ada.api.puflix_mongo.repo.TemporadaRepository;
-
 
 /**
  * Serie
@@ -15,14 +13,11 @@ import ar.com.ada.api.puflix_mongo.repo.TemporadaRepository;
 @Document(collection = "Series")
 public class Serie extends Contenido {
 
-    @Autowired
-    TemporadaRepository temporadaRepo;
-
-    public List<Temporada> temporadas = new ArrayList<Temporada>();
+    private List<Temporada> temporadas = new ArrayList<Temporada>();
     
     public List<Temporada> getTemporadas() {
 
-        return temporadaRepo.findAll();
+        return this.temporadas;
     }
 
 
@@ -42,4 +37,9 @@ public class Serie extends Contenido {
 
         return null;
     }
+
+    public void setTemporadas(List<Temporada> temporadas) {
+        this.temporadas = temporadas;
+    }
+
 }
