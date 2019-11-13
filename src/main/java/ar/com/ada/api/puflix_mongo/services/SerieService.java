@@ -70,7 +70,7 @@ public class SerieService {
 
     public enum SerieValidationType {
 
-        SERIE_OK,
+        SERIE_OK, 
         TEMPORADAS_NULA, 
         TEMPORADAS_VACIA, 
         TEMPORADA_DUPLICADA, 
@@ -79,7 +79,13 @@ public class SerieService {
         SERIE_DATOS_INVALIDOS 
         
     }
-
+/** Se verifica si el nombre de la serie NO está nulo
+ * El año no es 0
+ * La temporada no está nula ni vacía
+ * 
+ * @param serie
+ * @return
+ */
     public SerieValidationType verificarSerie(Serie serie) {
 
         if (serie.getNombre() == null)
