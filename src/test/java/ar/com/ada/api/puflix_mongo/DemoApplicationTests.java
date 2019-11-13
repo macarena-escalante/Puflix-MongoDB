@@ -3,6 +3,7 @@ package ar.com.ada.api.puflix_mongo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import ar.com.ada.api.puflix_mongo.entities.Episodio;
@@ -14,13 +15,14 @@ import ar.com.ada.api.puflix_mongo.services.SerieService.SerieValidationType;
 @SpringBootTest
 class DemoApplicationTests {
 
+	@Autowired
+	SerieService service;
 	@Test
 	void contextLoads() {
 	}
 
 	@Test
 	void verificarSerie() {
-		SerieService service = new SerieService();
 
 		Serie serie = new Serie();
 
@@ -31,8 +33,6 @@ class DemoApplicationTests {
 
 	@Test
 	void verificarSerieTempDuplicada() {
-
-		SerieService service = new SerieService();
 
 		Serie serie = new Serie();
 		serie.setNombre("Breaking Bad");
@@ -67,7 +67,6 @@ class DemoApplicationTests {
 	@Test
 	void verificarNombreSerie() {
 
-		SerieService service = new SerieService();
 		Serie serie = new Serie();
 
 		serie.setNombre("TWD");
@@ -91,7 +90,6 @@ class DemoApplicationTests {
 	@Test
 	void verificarSerieTempVacia() {
 
-		SerieService service = new SerieService();
 		Serie serie = new Serie();
 
 		serie.setNombre("Suits");
@@ -106,7 +104,6 @@ class DemoApplicationTests {
 	@Test
 	void verificarSerieTempNula() {
 
-		SerieService service = new SerieService();
 		Serie serie = new Serie();
 
 		serie.setNombre("OITNB");
@@ -123,7 +120,6 @@ class DemoApplicationTests {
 	@Test
 	void verificarSerieEpisVacio() {
 
-		SerieService service = new SerieService();
 		Serie serie = new Serie();
 
 		serie.setNombre("The Sinner");
@@ -140,5 +136,5 @@ class DemoApplicationTests {
 		assertEquals(SerieValidationType.TEMPORADA_INVALIDA, serieValidationType);
 	}
 
-	
+
 }
