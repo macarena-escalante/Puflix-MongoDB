@@ -51,18 +51,18 @@ public class SerieService {
         return serieRepo.findAll();
     }
 
-    public void agregarTemporada (String idSerie, Temporada temporada){
+    public void agregarTemporada(String idSerie, Temporada temporada) {
 
-        Serie s = serieService.buscarPorId(new ObjectId (idSerie));
+        Serie s = serieService.buscarPorId(new ObjectId(idSerie));
 
         s.getTemporadas().add(temporada);
         serieService.save(s);
-        
+
     }
 
-    public void agregarEpisodio (Episodio episodio, String idSerie, int nroTemp){
-        
-        Serie s = serieService.buscarPorId(new ObjectId (idSerie));
+    public void agregarEpisodio(Episodio episodio, String idSerie, int nroTemp) {
+
+        Serie s = serieService.buscarPorId(new ObjectId(idSerie));
         Temporada t = s.getTemporada(nroTemp);
         t.episodios.add(episodio);
         serieService.save(s);
@@ -70,22 +70,19 @@ public class SerieService {
 
     public enum SerieValidationType {
 
-        SERIE_OK, 
-        TEMPORADAS_NULA, 
-        TEMPORADAS_VACIA, 
-        TEMPORADA_DUPLICADA, 
-        TEMPORADA_INVALIDA,
+        SERIE_OK, TEMPORADAS_NULA, TEMPORADAS_VACIA, TEMPORADA_DUPLICADA, TEMPORADA_INVALIDA,
 
-        SERIE_DATOS_INVALIDOS 
-        
+        SERIE_DATOS_INVALIDOS
+
     }
-/** Se verifica si el nombre de la serie NO está nulo
- * El año no es 0
- * La temporada no está nula ni vacía
- * 
- * @param serie
- * @return
- */
+
+    /**
+     * Se verifica si el nombre de la serie NO está nulo El año no es 0 La temporada
+     * no está nula ni vacía
+     * 
+     * @param serie
+     * @return
+     */
     public SerieValidationType verificarSerie(Serie serie) {
 
         if (serie.getNombre() == null)
@@ -99,7 +96,7 @@ public class SerieService {
         if (serie.getTemporadas().size() == 0)
             return SerieValidationType.TEMPORADAS_VACIA;
 
-        //Armo un hashmap para ver si la temporada esta duplicada
+        // Armo un hashmap para ver si la temporada esta duplicada
         HashMap<Integer, Temporada> unicasTemps = new HashMap<>();
 
         for (Temporada t : serie.getTemporadas()) {
@@ -107,16 +104,12 @@ public class SerieService {
                 return SerieValidationType.TEMPORADA_DUPLICADA;
             if (t.getEpisodios().size() == 0)
                 return SerieValidationType.TEMPORADA_INVALIDA;
-        
-        unicasTemps.put(new Integer(t.getNumeroTemporada()), t);
-        
-            }
+
+            unicasTemps.put(new Integer(t.getNumeroTemporada()), t);
+
+        }
 
         return SerieValidationType.SERIE_OK;
     }
-
-
-
-
 
 }
